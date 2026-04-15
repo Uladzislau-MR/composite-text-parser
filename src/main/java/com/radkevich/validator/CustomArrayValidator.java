@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 public interface CustomArrayValidator {
 
-    public String[] extractStrict(String line);
-    public String[] extractFlexible(String line);
+    public boolean isValidInteger(String line);
+
 
 }

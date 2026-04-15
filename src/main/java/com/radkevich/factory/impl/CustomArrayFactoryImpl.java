@@ -1,42 +1,24 @@
 package com.radkevich.factory.impl;
 
 import com.radkevich.entity.CustomArray;
+import com.radkevich.exeption.ReadingException;
 import com.radkevich.factory.CustomArrayFactory;
-import com.radkevich.validator.CustomArrayValidator;
-import com.radkevich.validator.impl.CustomArrayValidatorImpl;
+import com.radkevich.parser.impl.CustomParserImpl;
+import com.radkevich.reader.CustomArrayReader;
+import com.radkevich.reader.impl.CustomArrayReaderImpl;
 
-import java.util.Arrays;
 
 public class CustomArrayFactoryImpl implements CustomArrayFactory {
 
+    private CustomArrayReader customArrayReader = new CustomArrayReaderImpl();
+    private CustomParserImpl customParser = new CustomParserImpl();
 
-    private final CustomArrayValidator validator = new CustomArrayValidatorImpl();
 
     @Override
-    public CustomArray createStrict(String line) {
+    public CustomArray create(String fileName) throws ReadingException {
+        String str = customArrayReader.readAllData(fileName);
 
-        String[] parts = validator.extractStrict(line);
-        return new CustomArray(parseToInts(parts));
-    }
-
-    @Override
-    public CustomArray createFlexible(String line) {
-        String[] parts = validator.extractFlexible(line);
-
-        return new CustomArray(parseToInts(parts));
-    }
-
-    @Override
-    public int[] parseToInts(String[] parts) {
-        // Если пришел пустой список строк, отдаем пустой массив
-        if (parts == null || parts.length == 0) {
-            return new int[0];
-        }
-
-
-        return Arrays.stream(parts)
-                .mapToInt(Integer::parseInt)
-                .toArray();
+        return new CustomArray(customParser.parseInt(str));
     }
 }
 

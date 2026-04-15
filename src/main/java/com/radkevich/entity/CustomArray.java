@@ -1,22 +1,27 @@
 package com.radkevich.entity;
 
-import java.util.Arrays;
 
 public class CustomArray {
 
-        private int[] elements;
+    private int[] elements;
 
-        public CustomArray(int[] elements) {
-            this.elements = elements;
-        }
+    public CustomArray(int[] elements) {
+        this.elements = elements;
+    }
 
-        public int[] getElements() {
-            return elements;
-        }
+    public int[] getElements() {
+        return elements.clone();
+    }
 
-        public void setElements(int[] elements) {
-            this.elements = elements;
+    public void setElements(int[] elements) {
+
+        if (elements == null) {
+            this.elements = new int[0];
+        } else {
+            this.elements = elements.clone();
         }
+    }
+
 
     @Override
     public boolean equals(Object o) {
@@ -39,7 +44,14 @@ public class CustomArray {
 
     @Override
     public int hashCode() {
-        return Arrays.hashCode(elements);
+        if (elements == null) {
+            return 0;
+        }
+        int result = 1;
+        for (int element : elements) {
+            result = 31 * result + element;
+        }
+        return result;
     }
 
     @Override
@@ -47,7 +59,7 @@ public class CustomArray {
         StringBuilder sb = new StringBuilder("CustomArray{elements=[");
         for (int i = 0; i < elements.length; i++) {
             sb.append(elements[i]);
-                 if (i < elements.length - 1) {
+            if (i < elements.length - 1) {
                 sb.append(", ");
             }
         }
