@@ -1,8 +1,10 @@
 package com.radkevich.service.impl;
 
+import com.radkevich.entity.CustomArray;
 import com.radkevich.exeption.ReadingException;
 import com.radkevich.factory.CustomArrayFactory;
-import com.radkevich.factory.impl.CustomArrayFactoryImpl;
+import com.radkevich.parser.CustomParser;
+import com.radkevich.reader.CustomArrayReader;
 import com.radkevich.service.CustomArrayService;
 
 import org.apache.logging.log4j.LogManager;
@@ -15,14 +17,26 @@ import java.util.OptionalInt;
 public class CustomArrayServiceImpl implements CustomArrayService {
 
     private static final Logger logger = LogManager.getLogger(CustomArrayServiceImpl.class);
-    private final CustomArrayFactory factory = new CustomArrayFactoryImpl();
+    private final CustomArrayReader reader;
+    private final CustomParser parser;
+    private final CustomArrayFactory factory;
 
+    public CustomArrayServiceImpl(CustomArrayReader reader, CustomParser parser, CustomArrayFactory factory) {
+        this.reader = reader;
+        this.parser = parser;
+        this.factory = factory;
+    }
 
+    public CustomArray createFromFile(String fileName) throws ReadingException {
+        String data = reader.readAllData(fileName);
+        int[] numbers = parser.parseInt(data);
+        return factory.create(numbers);
+    }
 
     @Override
     public OptionalInt findMin(String fileName) {
         try {
-            int[] elements = factory.create(fileName).getElements();
+            int[] elements = createFromFile(fileName).getElements();
             return Arrays.stream(elements).min();
         } catch (ReadingException e) {
             logger.error("Error in findMin ({}): {}", fileName, e.getMessage());
@@ -33,7 +47,7 @@ public class CustomArrayServiceImpl implements CustomArrayService {
     @Override
     public OptionalInt findMax(String fileName) {
         try {
-            int[] elements = factory.create(fileName).getElements();
+            int[] elements = createFromFile(fileName).getElements();
             return Arrays.stream(elements).max();
         } catch (ReadingException e) {
             logger.error("Error in findMax ({}): {}", fileName, e.getMessage());
@@ -44,7 +58,7 @@ public class CustomArrayServiceImpl implements CustomArrayService {
     @Override
     public int findSum(String fileName) {
         try {
-            int[] elements = factory.create(fileName).getElements();
+            int[] elements = createFromFile(fileName).getElements();
             return Arrays.stream(elements).sum();
         } catch (ReadingException e) {
             logger.error("Error in findSum ({}): {}", fileName, e.getMessage());
@@ -55,7 +69,7 @@ public class CustomArrayServiceImpl implements CustomArrayService {
     @Override
     public OptionalDouble findAverage(String fileName) {
         try {
-            int[] elements =factory.create(fileName).getElements();
+            int[] elements = createFromFile(fileName).getElements();
             return Arrays.stream(elements).average();
         } catch (ReadingException e) {
             logger.error("Error in findAverage ({}): {}", fileName, e.getMessage());
@@ -66,7 +80,7 @@ public class CustomArrayServiceImpl implements CustomArrayService {
     @Override
     public int[] sortBubble(String fileName) {
         try {
-            int[] array = factory.create(fileName).getElements();
+            int[] array = createFromFile(fileName).getElements();
             int n = array.length;
             for (int i = 0; i < n - 1; i++) {
                 for (int j = 0; j < n - i - 1; j++) {
@@ -87,7 +101,7 @@ public class CustomArrayServiceImpl implements CustomArrayService {
     @Override
     public int[] sortSelection(String fileName) {
         try {
-            int[] array = factory.create(fileName).getElements();
+            int[] array = createFromFile(fileName).getElements();
             int n = array.length;
             for (int i = 0; i < n - 1; i++) {
                 int minIdx = i;

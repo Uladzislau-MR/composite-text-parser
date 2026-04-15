@@ -5,7 +5,7 @@ import com.radkevich.exeption.ReadingException;
 
 public interface CustomArrayFactory {
 
-    CustomArray create (String fileName) throws ReadingException;
+    CustomArray create (int[] numbers) throws ReadingException;
 
 
 

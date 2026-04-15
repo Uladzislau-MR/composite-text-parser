@@ -1,7 +1,15 @@
 package com.radkevich.tests;
 
+import com.radkevich.factory.CustomArrayFactory;
+import com.radkevich.factory.impl.CustomArrayFactoryImpl;
+import com.radkevich.parser.CustomParser;
+import com.radkevich.parser.impl.CustomParserImpl;
+import com.radkevich.reader.CustomArrayReader;
+import com.radkevich.reader.impl.CustomArrayReaderImpl;
 import com.radkevich.service.CustomArrayService;
 import com.radkevich.service.impl.CustomArrayServiceImpl;
+import com.radkevich.validator.CustomArrayValidator;
+import com.radkevich.validator.impl.CustomArrayValidatorImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -15,7 +23,12 @@ public class CustomArrayServiceTest {
 
     @BeforeEach
     public void setup() {
-        customArrayService = new CustomArrayServiceImpl();
+        CustomArrayReader reader = new CustomArrayReaderImpl();
+        CustomArrayValidator validator = new CustomArrayValidatorImpl();
+        CustomParser parser = new CustomParserImpl(validator);
+        CustomArrayFactory factory = new CustomArrayFactoryImpl();
+
+        customArrayService = new CustomArrayServiceImpl(reader, parser, factory);
     }
     @Test
     public void sum() {

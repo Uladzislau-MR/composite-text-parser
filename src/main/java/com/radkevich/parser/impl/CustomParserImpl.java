@@ -7,13 +7,18 @@ import com.radkevich.validator.impl.CustomArrayValidatorImpl;
 import java.util.Arrays;
 
 public class CustomParserImpl implements CustomParser {
-    private final CustomArrayValidator validator = new CustomArrayValidatorImpl();
+    private final CustomArrayValidator validator;
+
+    public CustomParserImpl(CustomArrayValidator validator) {
+        this.validator = validator;
+    }
 
     public int[] parseInt(String line) {
         String delimiter = "[\\s,;\\-]+";
         return  Arrays.stream(line.strip().split(delimiter))
                 .filter(validator::isValidInteger)
-                .mapToInt(Integer::parseInt).toArray();
+                .mapToInt(Integer::parseInt)
+                .toArray();
 
     }
 

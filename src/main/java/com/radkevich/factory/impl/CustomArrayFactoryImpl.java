@@ -10,15 +10,10 @@ import com.radkevich.reader.impl.CustomArrayReaderImpl;
 
 public class CustomArrayFactoryImpl implements CustomArrayFactory {
 
-    private CustomArrayReader customArrayReader = new CustomArrayReaderImpl();
-    private CustomParserImpl customParser = new CustomParserImpl();
-
 
     @Override
-    public CustomArray create(String fileName) throws ReadingException {
-        String str = customArrayReader.readAllData(fileName);
-
-        return new CustomArray(customParser.parseInt(str));
+    public CustomArray create(int[] numbers) throws ReadingException {
+           return new CustomArray(numbers);
     }
 }
 
