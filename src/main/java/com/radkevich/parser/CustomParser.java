@@ -1,5 +1,7 @@
 package com.radkevich.parser;
 
+import java.util.List;
+
 public interface CustomParser {
-    int[] parseInt(String line);
+    List<int[]> parse (String entireFileContent);
 }

@@ -1,4 +1,4 @@
-package com.radkevich.tests;
+package com.radkevich.service;
 
 import com.radkevich.validator.CustomArrayValidator;
 import com.radkevich.validator.impl.CustomArrayValidatorImpl;

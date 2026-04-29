@@ -1,21 +1,44 @@
 package com.radkevich.service;
 
-import java.util.OptionalDouble;
-import java.util.OptionalInt;
+import com.radkevich.entity.CustomArray;
+import com.radkevich.entity.Statistics;
+import com.radkevich.exeption.ReadingException;
+import com.radkevich.exeption.RepositoryException;
+import com.radkevich.exeption.WarehouseException;
+
+import java.util.List;
 
 public interface CustomArrayService {
 
-    OptionalInt findMin(String fileName);
+    List<CustomArray> createFromFile(String fileName) throws ReadingException;
 
-    OptionalInt findMax(String fileName);
+    Statistics createStatistics(CustomArray array);
 
-    int findSum(String fileName);
+    void add(List<CustomArray> arraysList) throws RepositoryException, WarehouseException;
 
-    OptionalDouble findAverage(String fileName);
+    List<CustomArray> findByAverage(double average);
 
-    int[] sortBubble(String fileName);
+    List<CustomArray> findByMax(int max);
 
-    int[] sortSelection(String fileName);
+    List<CustomArray> findByMin(int min);
+
+    List<CustomArray> findBySizeEqual(int size);
+
+    List<CustomArray> findBySizeGreater(int size);
+
+    List<CustomArray> findBySizeLess(int size);
+
+    int findMin(CustomArray array);
+
+    int findMax(CustomArray array);
+
+    int findSum(CustomArray array);
+
+    double findAverage(CustomArray array);
+
+    List<CustomArray> sortById(List<CustomArray> arrayList);
+
+    List<CustomArray> sortByFirstElement(List<CustomArray> arrayList);
+
+    List<CustomArray> sortByLength(List<CustomArray> arrayList);
 }
-
-

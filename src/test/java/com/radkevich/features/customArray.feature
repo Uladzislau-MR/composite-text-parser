@@ -9,6 +9,4 @@ Feature: Processing custom arrays from file
     Then The calculated sum should be 141
     And The minimum value should be 1
     And The maximum value should be 77
-    And The resulting array after bubble sort should be "1, 1, 2, 2, 2, 3, 11, 42, 77"
-    And The resulting array after selection sort should be "1, 1, 2, 2, 2, 3, 11, 42, 77"
 
