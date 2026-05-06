@@ -40,19 +40,19 @@ public class TextService {
 
     public int getMaxSentencesWithCommonWord(TextComponent root) {
         List<TextComponent> allSentences = new ArrayList<>();
-        // Используем твой универсальный метод для поиска предложений
+
         findComponents(root, allSentences, ComponentType.SENTENCE);
 
         Map<String, Integer> wordFrequencyInSentences = new HashMap<>();
 
         for (TextComponent sentence : allSentences) {
             List<TextComponent> lexemesInCurrentSentence = new ArrayList<>();
-            // Используем ТОТ ЖЕ метод для поиска лексем внутри конкретного предложения
+
             findComponents(sentence, lexemesInCurrentSentence, ComponentType.LEXEME);
 
             Set<String> uniqueWords = new HashSet<>();
             for (TextComponent lexemeComp : lexemesInCurrentSentence) {
-                // ОЧИСТКА: переводим в нижний регистр и удаляем всё, кроме букв и цифр
+
                 String cleanWord = lexemeComp.toString()
                         .toLowerCase()
                         .trim()
