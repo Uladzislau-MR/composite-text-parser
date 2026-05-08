@@ -1,7 +1,7 @@
 package com.radkevich.infohandler.parser;
 
 import com.radkevich.infohandler.entity.TextComponent;
-import com.radkevich.infohandler.exeption.ParsingException;
+import com.radkevich.infohandler.exception.ParsingException;
 
 public abstract class AbstractTextParser implements TextParser {
 

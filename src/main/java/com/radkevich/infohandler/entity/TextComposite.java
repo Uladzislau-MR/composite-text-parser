@@ -35,19 +35,23 @@ public class TextComposite implements TextComponent {
     public String toString() {
         StringBuilder sb = new StringBuilder();
 
-
-        if (type == ComponentType.PARAGRAPH) {
-            sb.append("\n    ");
+        if (this.type == ComponentType.PARAGRAPH) {
+            sb.append("    ");
         }
 
         for (int i = 0; i < components.size(); i++) {
-            sb.append(components.get(i).toString());
+            String content = components.get(i).toString();
+            if (i == 0 && this.type == ComponentType.PARAGRAPH) {
+                content = content.stripLeading();
+            }
+            sb.append(content);
 
+            if (i < components.size() - 1) {
 
-            if (type == ComponentType.SENTENCE) {
-
-                if (i < components.size() - 1) {
-                    sb.append(" ");
+                if (this.type == ComponentType.TEXT) {
+                    sb.append("\n");
+                } else {
+                    sb.append(type.getDelimiter());
                 }
             }
         }

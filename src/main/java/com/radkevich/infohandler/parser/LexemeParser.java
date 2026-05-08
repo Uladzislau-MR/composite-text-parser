@@ -4,7 +4,7 @@ import com.radkevich.infohandler.entity.ComponentType;
 import com.radkevich.infohandler.entity.Symbol;
 import com.radkevich.infohandler.entity.TextComponent;
 import com.radkevich.infohandler.entity.TextComposite;
-import com.radkevich.infohandler.exeption.ParsingException;
+import com.radkevich.infohandler.exception.ParsingException;
 
 public class LexemeParser extends AbstractTextParser {
 
@@ -20,7 +20,7 @@ public class LexemeParser extends AbstractTextParser {
         for (String res : arr) {
             if (res.isEmpty()) continue;
 
-            if (res.matches(ComponentType.WORD.getDelimiter())) {
+            if (res.matches(WORD_SPLIT)) {
                 TextComponent word = delegateParse(res);
                 lexeme.add(word);
             } else {

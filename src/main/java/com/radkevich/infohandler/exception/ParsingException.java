@@ -1,4 +1,4 @@
-package com.radkevich.infohandler.exeption;
+package com.radkevich.infohandler.exception;
 
 import com.radkevich.infohandler.entity.ComponentType;
 

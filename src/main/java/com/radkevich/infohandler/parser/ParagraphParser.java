@@ -3,7 +3,7 @@ package com.radkevich.infohandler.parser;
 import com.radkevich.infohandler.entity.ComponentType;
 import com.radkevich.infohandler.entity.TextComponent;
 import com.radkevich.infohandler.entity.TextComposite;
-import com.radkevich.infohandler.exeption.ParsingException;
+import com.radkevich.infohandler.exception.ParsingException;
 
 public class ParagraphParser extends AbstractTextParser {
 
@@ -17,7 +17,7 @@ public class ParagraphParser extends AbstractTextParser {
         TextComponent component = new TextComposite(ComponentType.PARAGRAPH);
 
 
-        String[] arr = data.split(ComponentType.SENTENCE.getDelimiter());
+        String[] arr = data.split(SENTENCE_SPLIT);
         for (String res: arr) {
             component.add(delegateParse(res));
         }

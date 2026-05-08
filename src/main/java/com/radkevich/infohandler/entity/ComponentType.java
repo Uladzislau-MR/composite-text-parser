@@ -3,17 +3,11 @@ package com.radkevich.infohandler.entity;
 
 
 public enum ComponentType {
-    TEXT(""),
-    PARAGRAPH("(?m)(?=^\\s{4})"),
-
-    SENTENCE("(?<=[.!?])\\s+"),
-
-
-    LEXEME("\\s+"),
-
-
-    WORD("(?=[,.!?;:])|(?<=[,.!?;:])"),
-
+    TEXT("\n"),
+    PARAGRAPH(" "),
+    SENTENCE(" "),
+    LEXEME(""),
+    WORD(""),
     SYMBOL("");
 
     private final String delimiter;

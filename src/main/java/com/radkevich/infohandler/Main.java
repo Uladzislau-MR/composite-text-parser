@@ -1,7 +1,7 @@
 package com.radkevich.infohandler;
 
 import com.radkevich.infohandler.entity.TextComponent;
-import com.radkevich.infohandler.exeption.ParsingException;
+import com.radkevich.infohandler.exception.ParsingException;
 import com.radkevich.infohandler.parser.*;
 import com.radkevich.infohandler.reader.CustomReader;
 import com.radkevich.infohandler.reader.CustomReaderImpl;
@@ -24,39 +24,31 @@ public class Main {
         String textData = customReader.readAllData("Data.txt");
         TextComponent root = textParser.parse(textData);
 
-        System.out.println("=== FULL TEXT ANALYSIS ===");
-        printStructure(root);
+        String original = textData;
+        String reconstructed = root.toString();
 
-        System.out.println("\n\n=== TEXT_SERVICE METHODS TESTING ===");
+        System.out.println("--- ORIGINAL ---");
+        System.out.println(original);
+
+        System.out.println("\n--- RECONSTRUCTED ---");
+        System.out.println(reconstructed);
+
+        System.out.println("Root object type: " + root.getType());
+        System.out.println("Children count at root: " + root.getChildren().size());
+
+        for (TextComponent child : root.getChildren()) {
+            System.out.println("--- Child type: " + child.getType());
+        }
 
         int maxCommon = textService.getMaxSentencesWithCommonWord(root);
-        System.out.println("1. Max sentences with common word: " + maxCommon);
+        System.out.println("\nMax sentences with common word: " + maxCommon);
 
         char target = 'a';
         List<TextComponent> sorted = textService.sortSentencesByCharCount(root, target);
-        System.out.println("\n2. Sentences sorted by character '" + target + "' count:");
-        sorted.forEach(s -> System.out.println("   -> " + s.toString().trim()));
+        System.out.println("Sentences sorted by char '" + target + "' count: " + sorted.size());
 
-        System.out.println("\n3. Executing Swap (first and last words)...");
         textService.swapFirstAndLastWords(root);
-
-        System.out.println("\n=== TEXT AFTER CHANGES (SWAP) ===");
+        System.out.println("\n--- AFTER SWAP ---");
         System.out.println(root.toString());
-    }
-
-    private static void printStructure(TextComponent result) {
-        List<TextComponent> paragraphs = result.getChildren();
-        System.out.println("TOTAL PARAGRAPHS: " + paragraphs.size());
-
-        for (int i = 0; i < paragraphs.size(); i++) {
-            TextComponent paragraph = paragraphs.get(i);
-            List<TextComponent> sentences = paragraph.getChildren();
-            System.out.println("\nPARAGRAPH #" + (i + 1) + " (Sentences: " + sentences.size() + ")");
-
-            for (int j = 0; j < sentences.size(); j++) {
-                TextComponent sentence = sentences.get(j);
-                System.out.println("  [S" + (j + 1) + "]: " + sentence.toString().trim());
-            }
-        }
     }
 }

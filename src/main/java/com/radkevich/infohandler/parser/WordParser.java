@@ -3,7 +3,7 @@ package com.radkevich.infohandler.parser;
 import com.radkevich.infohandler.entity.ComponentType;
 import com.radkevich.infohandler.entity.TextComponent;
 import com.radkevich.infohandler.entity.TextComposite;
-import com.radkevich.infohandler.exeption.ParsingException;
+import com.radkevich.infohandler.exception.ParsingException;
 
 public class WordParser extends AbstractTextParser {
 
