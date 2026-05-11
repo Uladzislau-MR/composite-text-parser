@@ -18,7 +18,7 @@ public class LexemeParser extends AbstractTextParser {
         String[] arr = data.split(ComponentType.WORD.getDelimiter());
 
         for (String res : arr) {
-            if (res.isEmpty()) continue;
+            if (res.isBlank()) continue;
 
             if (res.matches(WORD_SPLIT)) {
                 TextComponent word = delegateParse(res);

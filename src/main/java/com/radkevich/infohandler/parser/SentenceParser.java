@@ -19,7 +19,7 @@ public class SentenceParser extends AbstractTextParser {
         TextComponent sentence = new TextComposite(ComponentType.SENTENCE);
 
 
-        String[] lexemes = data.trim().split(LEXEME_SPLIT);
+        String[] lexemes = data.strip().split(LEXEME_SPLIT);
 
         for (String lexemeData : lexemes) {
 
